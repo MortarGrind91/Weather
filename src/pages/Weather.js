@@ -27,7 +27,7 @@ export default function Weather() {
   const fetchCurrentWeather = async (city) => {
     try {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=9ac6f8b6be3fcb98a3062c42d3ee9095&lang=ru`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.APPLICATION_KEY}&lang=ru`,
       );
       setCurrentWeather(data);
     } catch (error) {
@@ -38,7 +38,7 @@ export default function Weather() {
   const fetchWeeklyWeather = async (city) => {
     try {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=9ac6f8b6be3fcb98a3062c42d3ee9095&lang=ru`,
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${process.env.REACT_APP_KEY}&lang=ru`,
       );
       setWeeklyWeather(data);
     } catch (error) {
