@@ -27,7 +27,7 @@ export default function Weather() {
   const fetchCurrentWeather = async (city) => {
     try {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.APPLICATION_KEY}&lang=ru`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_KEY}&lang=ru`,
       );
       setCurrentWeather(data);
     } catch (error) {
