@@ -25,7 +25,7 @@ export default function SearcInput({ fetchCurrentWeather, fetchWeeklyWeather }) 
       placeholder="Город"
       enterButton
       onChange={handleChangeInput}
-      onSearch={handleSearch}
+      onSearch={city.length ? handleSearch : false}
       value={city}
     />
   );

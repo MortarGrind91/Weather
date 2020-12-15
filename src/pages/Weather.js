@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import cx from 'classnames';
 
 import { SearchInput, CurrentWeather, WeeklyWeather } from '../components';
@@ -9,14 +8,18 @@ import { Layout } from 'antd';
 
 //utils
 import { openNotification } from '../utils';
+import { apiMethods } from '../utils';
 
 //images
-import weatherImage from '../assets/images/weather.jpg';
-import sun from '../assets/images/Sun.jpg';
-import clouds from '../assets/images/Clouds.jpg';
-import rain from '../assets/images/Rain.jpg';
 import drizzle from '../assets/images/Drizzle.jpg';
-import snow from '../assets/images/Snow.jpg';
+
+//video
+import weatherVideo from '../assets/video/weather.mp4';
+import sunVideo from '../assets/video/Sun.mp4';
+import cloudsVideo from '../assets/video/Clouds.mp4';
+import rainVideo from '../assets/video/Rain.mp4';
+import snowVideo from '../assets/video/Snow.mp4';
+import mistVideo from '../assets/video/Mist.mp4';
 
 //styles
 import '../styles/Weather.scss';
@@ -29,9 +32,7 @@ export default function Weather() {
 
   const fetchCurrentWeather = async (city) => {
     try {
-      const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_KEY}&lang=ru`,
-      );
+      const { data } = await apiMethods.getCurrentWeather(city);
       setCurrentWeather(data);
     } catch (error) {
       const { data } = error.response;
@@ -42,45 +43,48 @@ export default function Weather() {
 
   const fetchWeeklyWeather = async (city) => {
     try {
-      const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${process.env.REACT_APP_KEY}&lang=ru`,
-      );
+      const { data } = await apiMethods.getWeeklyWeather(city);
       setWeeklyWeather(data);
     } catch (error) {
       console.log(error.response);
     }
   };
 
-  const currentWeatherBg = (weather) => {
+  const currentWeatherVideoBg = (weather) => {
     switch (weather) {
       case 'Clear': {
-        return weatherImage;
+        return weatherVideo;
       }
       case 'Rain': {
-        return rain;
+        return rainVideo;
       }
       case 'Sun': {
-        return sun;
+        return sunVideo;
       }
       case 'Drizzle': {
         return drizzle;
       }
       case 'Clouds': {
-        return clouds;
+        return cloudsVideo;
       }
       case 'Snow': {
-        return snow;
+        return snowVideo;
+      }
+      case 'Mist': {
+        return mistVideo;
       }
       default: {
-        return weatherImage;
+        return weatherVideo;
       }
     }
   };
 
   return (
-    <div
-      className="weather"
-      style={{ backgroundImage: `url(${currentWeatherBg(currentWeather?.weather[0]?.main)})` }}>
+    <div className="weather">
+      <div className="overlay"></div>
+      <video autoPlay muted loop id="video" key={currentWeather?.weather[0]?.main}>
+        <source src={currentWeatherVideoBg(currentWeather?.weather[0]?.main)} type="video/mp4" />
+      </video>
       <Content className="weather-container">
         <div
           className={cx('weather-search__container', {
