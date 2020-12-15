@@ -7,6 +7,9 @@ import { SearchInput, CurrentWeather, WeeklyWeather } from '../components';
 //ui
 import { Layout } from 'antd';
 
+//utils
+import { openNotification } from '../utils';
+
 //images
 import weatherImage from '../assets/images/weather.jpg';
 import sun from '../assets/images/Sun.jpg';
@@ -31,7 +34,9 @@ export default function Weather() {
       );
       setCurrentWeather(data);
     } catch (error) {
-      console.log(error);
+      const { data } = error.response;
+
+      openNotification({ type: 'error', title: data.cod, text: data.message });
     }
   };
 
@@ -42,7 +47,7 @@ export default function Weather() {
       );
       setWeeklyWeather(data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 
