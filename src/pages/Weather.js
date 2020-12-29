@@ -53,7 +53,7 @@ export default function Weather() {
   const currentWeatherVideoBg = (weather) => {
     switch (weather) {
       case 'Clear': {
-        return weatherVideo;
+        return sunVideo;
       }
       case 'Rain': {
         return rainVideo;
