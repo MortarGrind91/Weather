@@ -34,6 +34,7 @@ $blackColor: #222222;
 
   &-container {
     max-width: 1240px;
+    width: 100%;
     padding: 0 15px;
     margin: auto;
   }
@@ -46,6 +47,9 @@ $blackColor: #222222;
         animation: show 1.5s;
         transition: all 1s ease;
         transform: translateY(-70px);
+        @media screen and (max-width: 768px) {
+          transform: translateY(-50px);
+        }
       }
     }
     .ant-input-group {
@@ -91,6 +95,10 @@ $blackColor: #222222;
       align-items: center;
       justify-content: flex-end;
       margin-left: -18px;
+      @media screen and (max-width: 768px) {
+        margin-left: 0;
+        padding: 25px 0;
+      }
     }
 
     &__city {
@@ -133,6 +141,14 @@ $blackColor: #222222;
           font-weight: normal;
         }
       }
+      @media screen and (max-width: 768px) {
+        margin-left: 0;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 15px;
+      flex-wrap: wrap;
     }
   }
 
