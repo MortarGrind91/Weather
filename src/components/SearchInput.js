@@ -8,7 +8,7 @@ import { useInput } from '../hooks/useInput';
 
 const { Search } = Input;
 
-export default function SearcInput({ fetchCurrentWeather, fetchWeeklyWeather }) {
+const SearcInput = ({ fetchCurrentWeather, fetchWeeklyWeather }) => {
   const [city, setCity] = useInput('');
 
   const handleSearch = () => {
@@ -28,4 +28,6 @@ export default function SearcInput({ fetchCurrentWeather, fetchWeeklyWeather }) 
       value={city}
     />
   );
-}
+};
+
+export default React.memo(SearcInput);

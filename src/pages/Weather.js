@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import cx from 'classnames';
+import React, { useState, useCallback } from 'react';
+import classNames from 'classnames';
 
 import { SearchInput, CurrentWeather, WeeklyWeather } from '../components';
 
@@ -19,7 +19,7 @@ export default function Weather() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [weeklyWeather, setWeeklyWeather] = useState(null);
 
-  const fetchCurrentWeather = async (city) => {
+  const fetchCurrentWeather = useCallback(async (city) => {
     try {
       const { data } = await WeatherService.getCurrentWeather(city);
       setCurrentWeather(data);
@@ -28,12 +28,12 @@ export default function Weather() {
 
       openNotification({ type: 'error', title: data.cod, text: data.message });
     }
-  };
+  }, []);
 
-  const fetchWeeklyWeather = async (city) => {
+  const fetchWeeklyWeather = useCallback(async (city) => {
     const { data } = await WeatherService.getWeeklyWeather(city);
     setWeeklyWeather(data);
-  };
+  }, []);
 
   return (
     <div className="weather">
@@ -43,7 +43,7 @@ export default function Weather() {
       </video>
       <Content className="weather-container">
         <div
-          className={cx('weather-search__container', {
+          className={classNames('weather-search__container', {
             animation: currentWeather || weeklyWeather,
           })}>
           <SearchInput
@@ -51,7 +51,7 @@ export default function Weather() {
             fetchWeeklyWeather={fetchWeeklyWeather}
           />
         </div>
-        <div className={cx('weather-info', { animation: currentWeather || weeklyWeather })}>
+        <div className={classNames('weather-info', { animation: currentWeather || weeklyWeather })}>
           {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
           {weeklyWeather && <WeeklyWeather weeklyWeather={weeklyWeather} />}
         </div>
