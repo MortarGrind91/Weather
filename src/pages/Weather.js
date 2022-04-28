@@ -7,19 +7,8 @@ import { SearchInput, CurrentWeather, WeeklyWeather } from '../components';
 import { Layout } from 'antd';
 
 //utils
-import { openNotification } from '../utils';
-import { apiMethods } from '../utils';
-
-//images
-import drizzle from '../assets/images/Drizzle.jpg';
-
-//video
-import weatherVideo from '../assets/video/weather.mp4';
-import sunVideo from '../assets/video/Sun.mp4';
-import cloudsVideo from '../assets/video/Clouds.mp4';
-import rainVideo from '../assets/video/Rain.mp4';
-import snowVideo from '../assets/video/Snow.mp4';
-import mistVideo from '../assets/video/Mist.mp4';
+import { openNotification, getWeatherBg } from '../utils';
+import WeatherService from '../API/WeatherService';
 
 //styles
 import '../styles/Weather.scss';
@@ -32,7 +21,7 @@ export default function Weather() {
 
   const fetchCurrentWeather = async (city) => {
     try {
-      const { data } = await apiMethods.getCurrentWeather(city);
+      const { data } = await WeatherService.getCurrentWeather(city);
       setCurrentWeather(data);
     } catch (error) {
       const { data } = error.response;
@@ -42,48 +31,15 @@ export default function Weather() {
   };
 
   const fetchWeeklyWeather = async (city) => {
-    try {
-      const { data } = await apiMethods.getWeeklyWeather(city);
-      setWeeklyWeather(data);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const currentWeatherVideoBg = (weather) => {
-    switch (weather) {
-      case 'Clear': {
-        return sunVideo;
-      }
-      case 'Rain': {
-        return rainVideo;
-      }
-      case 'Sun': {
-        return sunVideo;
-      }
-      case 'Drizzle': {
-        return drizzle;
-      }
-      case 'Clouds': {
-        return cloudsVideo;
-      }
-      case 'Snow': {
-        return snowVideo;
-      }
-      case 'Mist': {
-        return mistVideo;
-      }
-      default: {
-        return weatherVideo;
-      }
-    }
+    const { data } = await WeatherService.getWeeklyWeather(city);
+    setWeeklyWeather(data);
   };
 
   return (
     <div className="weather">
       <div className="overlay"></div>
       <video autoPlay muted loop id="video" key={currentWeather?.weather[0]?.main}>
-        <source src={currentWeatherVideoBg(currentWeather?.weather[0]?.main)} type="video/mp4" />
+        <source src={getWeatherBg(currentWeather?.weather[0]?.main)} type="video/mp4" />
       </video>
       <Content className="weather-container">
         <div

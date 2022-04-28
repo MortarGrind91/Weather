@@ -13,7 +13,7 @@ export default function CurrentWeather({ currentWeather }) {
         <div className="weather-current__day">{currentDay}</div>
         <div className="weather-current__box">
           <div className="weather-current__image">
-            <img src={icon} />
+            <img src={icon} alt="icon" />
             <p>{currentWeather?.weather[0]?.description}</p>
           </div>
           <div className="weather-current__temp">

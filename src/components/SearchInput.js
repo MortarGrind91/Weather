@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 //ui
 import { Input } from 'antd';
 
+//hooks
+import { useInput } from '../hooks/useInput';
+
 const { Search } = Input;
 
 export default function SearcInput({ fetchCurrentWeather, fetchWeeklyWeather }) {
-  const [city, setCity] = useState('');
-
-  const handleChangeInput = (e) => {
-    setCity(e.target.value);
-  };
+  const [city, setCity] = useInput('');
 
   const handleSearch = () => {
     fetchCurrentWeather(city);
@@ -24,7 +23,7 @@ export default function SearcInput({ fetchCurrentWeather, fetchWeeklyWeather }) 
       className="weather-search"
       placeholder="Город"
       enterButton
-      onChange={handleChangeInput}
+      onChange={setCity}
       onSearch={city.length ? handleSearch : false}
       value={city}
     />

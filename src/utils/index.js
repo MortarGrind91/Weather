@@ -1,2 +1,3 @@
 export { openNotification } from './openNotification';
-export { apiMethods } from './apiMethods';
+export { getWeatherBg } from './getWeatherBg';
+export { isCurrentDay } from './isCurrentDay';

@@ -3,8 +3,13 @@ $whiteColor: #fff;
 $greyColor: #363434;
 $blackColor: #222222;
 
+/* fix Uncaught ReferenceError: process is not defined */
+body > iframe[style*='2147483647']:not([id='webpack-dev-server-client-overlay']) {
+  display: none;
+}
+/* end fix Uncaught ReferenceError: process is not defined */
+
 .weather {
-  // background-image: url('../assets/images/weather.jpg');
   background-color: #40a9ff;
   background-repeat: no-repeat;
   background-size: cover;

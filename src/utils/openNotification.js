@@ -1,6 +1,3 @@
-import React from 'react';
-
-//ui
 import { notification } from 'antd';
 
 export function openNotification({ type, title, text }) {

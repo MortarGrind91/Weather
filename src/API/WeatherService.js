@@ -1,14 +1,19 @@
 import axios from 'axios';
 
-export const apiMethods = {
-  getCurrentWeather(city) {
-    return axios.get(
+export default class WeatherService {
+  static async getCurrentWeather(city) {
+    const resp = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_KEY}&lang=ru`,
     );
-  },
-  getWeeklyWeather(city) {
-    return axios.get(
+
+    return resp;
+  }
+
+  static async getWeeklyWeather(city) {
+    const resp = await axios.get(
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${process.env.REACT_APP_KEY}&lang=ru`,
     );
-  },
-};
+
+    return resp;
+  }
+}
